@@ -1,3 +1,7 @@
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
+#include "Edge.h"
+#include "Vertex.h"
 /*
  * =====================================================================================
  *
@@ -18,7 +22,7 @@
 class Triangle
 {
 public:
-	Triangle (Edge* edge1, Edge* edge2, Edge* edge3, Vertex* vert1, Vertex* vert2, Vertex* vert3);
+	Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Vertex* vert2, Vertex* vert3);
 	Edge* edge1;
 	Edge* edge2;
 	Edge* edge3;
@@ -30,3 +34,4 @@ public:
 private:
 	/* data */
 };
+#endif /* ifndef TRIANGLE_H */

@@ -1,14 +1,13 @@
-#ifndef VERTEX_H
-#define VERTEX_H
+#include "Vertex.h"
 /*
  * =====================================================================================
  *
- *       Filename:  Vertex.h
+ *       Filename:  Vertex.c
  *
- *    Description:  Containerclass for Vertex
+ *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/27/2016 01:39:51 PM
+ *        Created:  02/01/2016 10:49:48 AM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -17,16 +16,12 @@
  *
  * =====================================================================================
  */
-class Vertex
-{
-public:
-	Vertex (double x, double y, double z);
-	double x;
-	double y;
-	double z;
-	virtual ~Vertex ();
 
-private:
-	/* data */
-};
-#endif /* ifndef VERTEX_H */
+Vertex::Vertex(double x, double y, double z){
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
+Vertex::~Vertex(){
+
+}
