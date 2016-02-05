@@ -1,7 +1,7 @@
 #include <vector>
-#include <Edge.h>
-#include <Vertex.h>
-#include <Triangle.h>
+#include "Edge.h"
+#include "Vertex.h"
+#include "Triangle.h"
 /*
  * =====================================================================================
  *
