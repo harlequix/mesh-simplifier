@@ -24,7 +24,15 @@ Triangle::Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Ver
 	this->vert1 = vert1;
 	this->vert2 = vert2;
 	this->vert3 = vert3;
+	this->normX = 0;
+	this->normY = 0;
+	this->normZ = 0;
 	//TODO Register Triangle to edges
 }
 Triangle::~Triangle() {
+}
+void Triangle::setNormal(double x, double y, double z) {
+	normX = x;
+	normY = y;
+	normZ = z;
 }

@@ -1,7 +1,9 @@
+#ifndef GRAPHICOB_H
+#define GRAPHICOB_H
 #include <vector>
-#include <Edge.h>
-#include <Vertex.h>
-#include <Triangle.h>
+#include "Edge.h"
+#include "Vertex.h"
+#include "Triangle.h"
 /*
  * =====================================================================================
  *
@@ -26,12 +28,13 @@ public:
 	virtual ~Graphicobject ();
 	void addVertex(Vertex*new_Vertex);
 	void addEdge(Edge* new_edge);
-	void addTriangel(Triangle* new_triangle);
+	void addTriangle(Triangle* new_triangle);
 	void show();
 	int simplify();
 	void revert();
-private:
 	std::vector<Edge*> edge_list;
 	std::vector<Triangle*> triangle_list;
 	std::vector<Vertex*> vertex_list;
+private:
 };
+#endif /* ifndef GRAPHICOB_H */
