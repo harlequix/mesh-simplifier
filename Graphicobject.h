@@ -23,15 +23,16 @@ class Graphicobject
 {
 public:
 	Graphicobject ();
-	virtual ~Graphicobject ();
+//	virtual ~Graphicobject ();
 	void addVertex(Vertex*new_Vertex);
 	void addEdge(Edge* new_edge);
 	void addTriangel(Triangle* new_triangle);
 	void show();
 	int simplify();
 	void revert();
-private:
 	std::vector<Edge*> edge_list;
-	std::vector<Triangle*> triangle_list;
 	std::vector<Vertex*> vertex_list;
+private:
+	std::vector<Triangle*> triangle_list;
+	
 };

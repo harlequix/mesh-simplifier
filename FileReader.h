@@ -1,11 +1,12 @@
-#include "Graphicobject.h"
 #include <string>
+#include "Graphicobject.h"
 
 class FileReader
 {
 public:
-  FileReader(string path);
-  Graphicobject readFile();
-  ~FileReader();
+  FileReader();
+  Graphicobject readFile(std::string path);
+//  ~FileReader();
+  std::string path;
 
 };
