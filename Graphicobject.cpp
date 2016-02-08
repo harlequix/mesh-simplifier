@@ -19,6 +19,9 @@
 Graphicobject::Graphicobject() {
 	
 }
+Graphicobject::~Graphicobject(){
+
+}
 void Graphicobject::show() {
 	
 }
@@ -28,6 +31,6 @@ void Graphicobject::addEdge(Edge* new_edge) {
 void Graphicobject::addVertex(Vertex* new_Vertex) {
 	vertex_list.push_back(new_Vertex);
 }
-void Graphicobject::addTriangel(Triangle* new_triangle) {
+void Graphicobject::addTriangle(Triangle* new_triangle) {
 	triangle_list.push_back(new_triangle);
 }

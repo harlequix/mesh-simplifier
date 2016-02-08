@@ -6,7 +6,8 @@ class FileReader
 public:
   FileReader();
   Graphicobject readFile(std::string path);
-//  ~FileReader();
+  ~FileReader();
   std::string path;
 
 };
+

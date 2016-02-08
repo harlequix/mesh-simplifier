@@ -23,12 +23,16 @@ class Triangle
 {
 public:
 	Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Vertex* vert2, Vertex* vert3);
+	void setNormal(double x, double y, double z);
 	Edge* edge1;
 	Edge* edge2;
 	Edge* edge3;
 	Vertex* vert1;
 	Vertex* vert2;
 	Vertex* vert3;
+	double normX;
+	double normY;
+	double normZ;
 	virtual ~Triangle ();
 
 private:

@@ -12,7 +12,6 @@
     std::string str;
     Graphicobject obj;
     int vertex_count=0;
-    int triangle_count=0;
     //count number of vertices
     while (std::getline(file_1, str)){
       std::istringstream iss(str);
@@ -53,9 +52,9 @@
         int insert_bc=0;
         int insert_ca=0;
         //pointer to edges of triangle
-        Edge* ab;
-        Edge* bc;
-        Edge* ca;
+        Edge* ab=NULL;
+        Edge* bc=NULL;
+        Edge* ca=NULL;
         //markers - check if vertex is contained in edge, if yes mark it
         int at_a=0;
         int at_b=0;
