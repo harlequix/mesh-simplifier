@@ -55,15 +55,17 @@ std::string Vertex::toString() {
 void Vertex::addTriangle(Triangle* tri){
 	this->tr_list.push_back(tri);
 }
+<<<<<<< HEAD
+void Vertex::addEdge(Edge* new_edge) {
+	edge_list.push_back(new_edge);
+=======
 
 double operator*(Vertex l, Vertex r){
   return l.x*r.x+l.y*r.y+l.z*r.z;
-}
-void Vertex::addEdge(Edge* new_edge) {
-	edge_list.push_back(new_edge);
 }
 
 Vertex operator*(Vertex v, double s){
 	Vertex vertex(v.x * s, v.y * s, v.z * s);
 	return vertex;
+>>>>>>> 9ea1c6423be4069aff27fd5cf40df32c4e766cbe
 }

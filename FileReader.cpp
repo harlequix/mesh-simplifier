@@ -11,7 +11,7 @@
   Graphicobject FileReader::readFile(std::string path){
     std::ifstream file_1(path.c_str());
     std::string str;
-    Graphicobject obj;
+    Graphicobject obj=new Graphicobject();
     int vertex_count=0;
     //count number of vertices
     while (std::getline(file_1, str)){
@@ -27,7 +27,6 @@
 
     //add vertices to array and fill graphicobject with data from file or from already known data
     Vertex* vertices [vertex_count];
-    malloc(sizeof());
     std::ifstream file_2(path.c_str());
     vertex_count=0;
     while(std::getline(file_2, str)){
@@ -114,10 +113,9 @@
 
         }
         //add Triangle with vertex and edge information
-        Triangle triangle(ab,bc,ca,vertex_a,vertex_b,vertex_c);
+        Triangle triangle=new Triangle(ab,bc,ca,vertex_a,vertex_b,vertex_c);
         std::cerr << "Added triangle" << std::endl;
       }
     }
     return obj;
   }
-containcobject obj;er

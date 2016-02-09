@@ -40,4 +40,8 @@ public:
 private:
 	/* data */
 };
+
+double operator*(Vertex l, Vertex r);
+Vertex operator*(Vertex v, double s);
+
 #endif /* ifndef VERTEX_H */
