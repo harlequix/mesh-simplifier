@@ -3,6 +3,8 @@
 #include <string>
 #include "Graphicobject.h"
 
+class Graphicobject;
+
 class FileReader
 {
 public:

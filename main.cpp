@@ -22,6 +22,9 @@
  * =====================================================================================
  */
 int main(int argc, char *argv[]){
+	FileReader reader;
+	Graphicobject object=reader.readFile("test.obj");
+	object.show();
 	/*Vertex v1(-1,0,0);
 	std::cout << v1.toString() << std::endl;;
 	Vertex v2(1,0,0);
