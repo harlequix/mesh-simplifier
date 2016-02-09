@@ -34,7 +34,7 @@ public:
 	void addEdge(Edge* new_edge);
 	void addTriangle(Triangle* new_triangle);
 	void show();
-	int simplify(Edge* from, Edge* to);
+	int simplify(Vertex* from, Vertex* to);
 	void revert();
 	std::vector<Edge*> edge_list;
 	std::vector<Vertex*> vertex_list;

@@ -43,10 +43,10 @@ public:
 	bool replace(Vertex* old_vert, Vertex* new_vert);
 	double normZ;
 	virtual ~Triangle ();
+	int currentID;
 
 private:
 	static int id;
-	int currentID;
 	/* data */
 };
 #endif /* ifndef TRIANGLE_H */
