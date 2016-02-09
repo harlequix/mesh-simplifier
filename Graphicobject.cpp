@@ -25,8 +25,30 @@ Graphicobject::~Graphicobject(){
 void Graphicobject::show() {
 	
 }
-int Graphicobject::simplify(Edge* from, Edge* to) {
-	
+int Graphicobject::simplify(Vertex* from, Vertex* to) {
+	for (Edge* i : from->edge_list) {
+		Vertex* partner;
+		if(i->vert1 == from){
+			partner = i->vert2;
+		}
+		else{
+			partner = i->vert1;
+		}
+		if(!to->isConnected(partner)){
+			i->replace(from, to);
+		}
+		else{
+			this->edge_list[i->currentID] = NULL;
+		}
+	}
+	for (Triangle* i : from->tr_list) {
+		if(!i->isIn(to)){
+			i->replace(from, to);
+		}
+		else{
+			this->triangle_list[i->currentID] = NULL;
+		}
+	}
 }
 void Graphicobject::addEdge(Edge* new_edge) {
 	edge_list.push_back(new_edge);
