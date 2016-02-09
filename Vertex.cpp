@@ -41,3 +41,12 @@ std::string Vertex::toString() {
 void Vertex::addTriangle(Triangle* tri){
 	this->tr_list.push_back(tri);
 }
+
+double operator*(Vertex l, Vertex r){
+  return l.x*r.x+l.y*r.y+l.z*r.z;
+}
+
+Vertex operator*(Vertex v, double s){
+	Vertex vertex(v.x * s, v.y * s, v.z * s);
+	return vertex;
+}
