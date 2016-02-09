@@ -39,6 +39,8 @@ public:
 	Vertex* vert3;
 	double normX;
 	double normY;
+	bool isIn(Vertex* q);
+	bool replace(Vertex* old_vert, Vertex* new_vert);
 	double normZ;
 	virtual ~Triangle ();
 

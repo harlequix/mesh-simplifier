@@ -25,8 +25,30 @@ Edge::Edge(Vertex* vert1, Vertex* vert2):currentID(id++){
 	this->vert2 = vert2;
 	this->tri1 = NULL;
 	this->tri2 = NULL;
+	vert1->addEdge(this);
+	vert2->addEdge(this);
 }
 Edge::~Edge(){
+}
+bool Edge::replace(Vertex* old_vert, Vertex* new_vert) {
+	if(this->vert1 == old_vert){
+		this->vert1 = new_vert;
+		return true;
+	}
+	if (this->vert2 == old_vert) {
+		this->vert2 = new_vert;
+		return true;
+	}
+	return false;
+}
+
+bool Edge::isIn(Vertex* q) {
+	if(this->vert1 == q || this->vert2 ==q){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 double Edge::cost(){
 	//double min1 = 10000;

@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
 	Edge e14(&p6, &p8);
 	Edge e15(&p7, &p8);
 
-	Triangle t1(&e1, &e9, &e8, &p1, &p2, &p3);
+	Triangle t1(&e1, &e9, &e8, &p1, &p2, &p7);
 	Triangle t2(&e2, &e9, &e10, &p2, &p3, &p7);
 	Triangle t3(&e10, &e3, &e11, &p3, &p7, &p4);
 	Triangle t4(&e4, &e11, &e12, &p4, &p5, &p7);
@@ -96,22 +96,22 @@ int main(int argc, char *argv[]){
 	std::cout << t7.normToString() << std::endl;
 	std::cout << t6.normToString() << std::endl;
 	std::cout << e15.cost() << std::endl;
-	std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> cost_queue;
-	cost_queue.push(PriorityItem(&e1, e1.cost()));
-	cost_queue.push(PriorityItem(&e2, e2.cost()));
-	cost_queue.push(PriorityItem(&e3, e3.cost()));
-	cost_queue.push(PriorityItem(&e4, e4.cost()));
-	cost_queue.push(PriorityItem(&e5, e5.cost()));
-	cost_queue.push(PriorityItem(&e6, e6.cost()));
-	cost_queue.push(PriorityItem(&e7, e7.cost()));
-	cost_queue.push(PriorityItem(&e8, e8.cost()));
-	cost_queue.push(PriorityItem(&e9, e9.cost()));
-	cost_queue.push(PriorityItem(&e10, e10.cost()));
-	cost_queue.push(PriorityItem(&e11, e11.cost()));
-	cost_queue.push(PriorityItem(&e12, e12.cost()));
-	cost_queue.push(PriorityItem(&e13, e13.cost()));
-	cost_queue.push(PriorityItem(&e14, e14.cost()));
-	cost_queue.push(PriorityItem(&e15, e15.cost()));
+	//std::priority_queue<PriorityItem, std::v cost_queue;
+	foo.cost_queue.push(PriorityItem(&e1, e1.cost()));
+	foo.cost_queue.push(PriorityItem(&e2, e2.cost()));
+	foo.cost_queue.push(PriorityItem(&e3, e3.cost()));
+	foo.cost_queue.push(PriorityItem(&e4, e4.cost()));
+	foo.cost_queue.push(PriorityItem(&e5, e5.cost()));
+	foo.cost_queue.push(PriorityItem(&e6, e6.cost()));
+	foo.cost_queue.push(PriorityItem(&e7, e7.cost()));
+	foo.cost_queue.push(PriorityItem(&e8, e8.cost()));
+	foo.cost_queue.push(PriorityItem(&e9, e9.cost()));
+	foo.cost_queue.push(PriorityItem(&e10, e10.cost()));
+	foo.cost_queue.push(PriorityItem(&e11, e11.cost()));
+	foo.cost_queue.push(PriorityItem(&e12, e12.cost()));
+	foo.cost_queue.push(PriorityItem(&e13, e13.cost()));
+	foo.cost_queue.push(PriorityItem(&e14, e14.cost()));
+	foo.cost_queue.push(PriorityItem(&e15, e15.cost()));
 	/*for (Triangle* i : foo.triangle_list) {
 		std::cout << i->toString();
 	}
@@ -119,10 +119,11 @@ int main(int argc, char *argv[]){
 		std::cout << i->toString();
 	}
 	std::cout << foo.triangle_list.size();*/
-	while(!cost_queue.empty()){
-		PriorityItem i = cost_queue.top();
-		cost_queue.pop();
+	while(!foo.cost_queue.empty()){
+		PriorityItem i = foo.cost_queue.top();
+		foo.cost_queue.pop();
 		std::cout <<"Kosten: " <<i.cost << std::endl  << i.content->toString();
 	}
+	std::cout << p8.toString() << std::endl;
 	return 0;
 }

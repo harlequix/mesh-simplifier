@@ -4,6 +4,8 @@
 #include "Edge.h"
 #include "Vertex.h"
 #include "Triangle.h"
+#include <queue>
+#include "PriorityItem.h"
 /*
  * =====================================================================================
  *
@@ -30,32 +32,14 @@ public:
 	void addEdge(Edge* new_edge);
 	void addTriangle(Triangle* new_triangle);
 	void show();
-	int simplify();
+	int simplify(Edge* from, Edge* to);
 	void revert();
 	std::vector<Edge*> edge_list;
 	std::vector<Vertex*> vertex_list;
         std::vector<Triangle*> triangle_list;
-private:
-
-};
-class PriorityItem
-{
-public:
-	double cost;
-	Edge* content;
-	PriorityItem (Edge* new_edge, double cost){
-		this->content = new_edge;
-		this->cost = cost;
-	};
-	~PriorityItem (){};
-
+	std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> cost_queue;
 
 private:
-	/* data */
-};
-struct compare {
-	bool operator()(const PriorityItem l, const PriorityItem r){
-		return l.cost > r.cost;
-	}
+
 };
 #endif /* ifndef GRAPHICOB_H */

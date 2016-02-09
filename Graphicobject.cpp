@@ -25,6 +25,9 @@ Graphicobject::~Graphicobject(){
 void Graphicobject::show() {
 	
 }
+int Graphicobject::simplify(Edge* from, Edge* to) {
+	
+}
 void Graphicobject::addEdge(Edge* new_edge) {
 	edge_list.push_back(new_edge);
 }

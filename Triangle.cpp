@@ -58,7 +58,30 @@ void Triangle::calculateNorm() {
 	this->normZ = normZ/length;
 }
 std::string Triangle::toString() {
-	return "Triangle " + std::to_string(this->currentID) + "\n" + "\t" + vert1->toString() + "\n\t" + vert2->toString() + "\n\t" + vert3->toString() + "\n"; 
+	return "Triangle " + std::to_string(this->currentID) + "\n" + "\t" + vert1->toString() + "\n\t" + vert2->toString() + "\n\t" + vert3->toString() + "\n";
+}
+bool Triangle::replace(Vertex* old_vert, Vertex* new_vert) {
+	if(this->vert1 == old_vert){
+		this->vert1 = new_vert;
+		return true;
+	}
+	if(this->vert2 == old_vert){
+		this->vert2 = new_vert;
+		return true;
+	}
+	if(this->vert3 == old_vert){
+		this->vert3 = new_vert;
+		return true;
+	}
+	return false;
+}
+bool Triangle::isIn(Vertex* q) {
+	if(q == this->vert1 || q == this->vert2 || q == this->vert3){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 void Triangle::setNormal(double x, double y, double z) {
 	normX = x;
