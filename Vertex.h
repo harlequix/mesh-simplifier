@@ -27,6 +27,7 @@ class Vertex
 {
 public:
 	Vertex (double x, double y, double z);
+  int id;
 	double x;
 	double y;
 	double z;
@@ -37,6 +38,7 @@ public:
 	std::vector<Edge*> edge_list;
 	void addEdge(Edge* new_edge);
 	bool isConnected(Vertex* q);
+  void setid(int);
 private:
 	/* data */
 };

@@ -63,6 +63,10 @@ void Vertex::addEdge(Edge* new_edge) {
 	edge_list.push_back(new_edge);
 }
 
+void Vertex::setid(int i){
+	this->id=id;
+}
+
 Vertex operator*(Vertex v, double s){
 	Vertex vertex(v.x * s, v.y * s, v.z * s);
 	return vertex;

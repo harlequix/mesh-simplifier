@@ -11,7 +11,7 @@
   Graphicobject FileReader::readFile(std::string path){
     std::ifstream file_1(path.c_str());
     std::string str;
-    Graphicobject obj=new Graphicobject();
+    Graphicobject* obj=new Graphicobject();
     int vertex_count=0;
     //count number of vertices
     while (std::getline(file_1, str)){
@@ -38,9 +38,10 @@
         Vertex* vertex=new Vertex(a,b,c);
         //std::cerr << vertex << std::endl;
         vertices[vertex_count]=vertex;
-        obj.addVertex(vertices[vertex_count]);
+        obj->addVertex(vertices[vertex_count]);
         std::cerr << "Added vertex" << std::endl;
         vertex_count++;
+        vertex->setid(vertex_count);
       }
       if(s.compare("f")==0){
         //the vertices of the face
@@ -61,10 +62,10 @@
         int at_b=0;
         int at_c=0;
         //compare all vertices with vertices in already known edges
-        for (int i=0; i<obj.edge_list.size(); i++){
-          Edge* edge=obj.edge_list[i];
-          Vertex* vert_1=(obj.edge_list[i]->vert1);
-          Vertex* vert_2=(obj.edge_list[i]->vert2);
+        for (int i=0; i<obj->edge_list.size(); i++){
+          Edge* edge=obj->edge_list[i];
+          Vertex* vert_1=(obj->edge_list[i]->vert1);
+          Vertex* vert_2=(obj->edge_list[i]->vert2);
           //if the edge points to one of the vertices in the input face mark it
           if(vertex_a==vert_1 || vertex_a==vert_2){
             at_a=1;
@@ -97,25 +98,26 @@
         //insert all edges that are not known
         if(insert_ab==0){
           ab=new Edge(vertex_a,vertex_b);
-          obj.addEdge(ab);
+          obj->addEdge(ab);
           std::cerr << "Added edge "<< vertex_a->x <<" to " << vertex_b->x << std::endl;
 
         }
         if(insert_bc==0){
           bc=new Edge(vertex_b,vertex_c);
-          obj.addEdge(bc);
+          obj->addEdge(bc);
           std::cerr << "Added edge"<< vertex_b->x <<" to " << vertex_c->x << std::endl;
         }
         if(insert_ca==0){
           ca=new Edge(vertex_c,vertex_a);
-          obj.addEdge(ca);
+          obj->addEdge(ca);
           std::cerr << "Added edge"<< vertex_c->x <<" to " << vertex_a->x << std::endl;
 
         }
         //add Triangle with vertex and edge information
-        Triangle triangle=new Triangle(ab,bc,ca,vertex_a,vertex_b,vertex_c);
+        Triangle* triangle=new Triangle(ab,bc,ca,vertex_a,vertex_b,vertex_c);
+        obj->addTriangle(triangle);
         std::cerr << "Added triangle" << std::endl;
       }
     }
-    return obj;
+    return *obj;
   }
