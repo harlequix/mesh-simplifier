@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Triangle.h"
+#include "Edge.h"
 /*
  * =====================================================================================
  *
@@ -20,6 +21,7 @@
  *
  * =====================================================================================
  */
+class Edge;
 class Triangle;
 class Vertex
 {
@@ -32,7 +34,9 @@ public:
 	std::string toString();
 	void addTriangle(Triangle* tri);
 	std::vector<Triangle*> tr_list;
-
+	std::vector<Edge*> edge_list;
+	void addEdge(Edge* new_edge);
+	bool isConnected(Vertex* q);
 private:
 	/* data */
 };
