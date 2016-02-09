@@ -1,5 +1,8 @@
 #ifndef VERTEX_H
 #define VERTEX_H
+#include <string>
+#include <vector>
+#include "Triangle.h"
 /*
  * =====================================================================================
  *
@@ -17,6 +20,7 @@
  *
  * =====================================================================================
  */
+class Triangle;
 class Vertex
 {
 public:
@@ -25,6 +29,9 @@ public:
 	double y;
 	double z;
 	virtual ~Vertex ();
+	std::string toString();
+	void addTriangle(Triangle* tri);
+	std::vector<Triangle*> tr_list;
 
 private:
 	/* data */

@@ -3,9 +3,10 @@
 #include <iostream>
 #include <sstream>
 
-  FileReader::FileReader(void){
+  FileReader::FileReader(){
 
   }
+  FileReader::~FileReader(){}
 
   Graphicobject FileReader::readFile(std::string path){
     std::ifstream file_1(path.c_str());
@@ -26,6 +27,7 @@
 
     //add vertices to array and fill graphicobject with data from file or from already known data
     Vertex* vertices [vertex_count];
+    malloc(sizeof());
     std::ifstream file_2(path.c_str());
     vertex_count=0;
     while(std::getline(file_2, str)){
@@ -118,4 +120,4 @@
     }
     return obj;
   }
-
+containcobject obj;er

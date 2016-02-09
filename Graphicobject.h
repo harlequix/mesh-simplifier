@@ -16,8 +16,8 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  YOUR NAME (), 
- *   Organization:  
+ *         Author:  YOUR NAME (),
+ *   Organization:
  *
  * =====================================================================================
  */
@@ -34,7 +34,28 @@ public:
 	void revert();
 	std::vector<Edge*> edge_list;
 	std::vector<Vertex*> vertex_list;
+        std::vector<Triangle*> triangle_list;
 private:
-	std::vector<Triangle*> triangle_list;
+
+};
+class PriorityItem
+{
+public:
+	double cost;
+	Edge* content;
+	PriorityItem (Edge* new_edge, double cost){
+		this->content = new_edge;
+		this->cost = cost;
+	};
+	~PriorityItem (){};
+
+
+private:
+	/* data */
+};
+struct compare {
+	bool operator()(const PriorityItem l, const PriorityItem r){
+		return l.cost > r.cost;
+	}
 };
 #endif /* ifndef GRAPHICOB_H */

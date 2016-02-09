@@ -1,3 +1,5 @@
+#ifndef FILEREADER_H
+#define FILEREADER_H
 #include <string>
 #include "Graphicobject.h"
 
@@ -10,4 +12,4 @@ public:
   std::string path;
 
 };
-
+#endif

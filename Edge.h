@@ -1,6 +1,6 @@
 #ifndef EDGE_H
 #define EDGE_H
-//#include "Triangle.h"
+#include "Triangle.h"
 #include "Vertex.h"
 /*
  * =====================================================================================
@@ -19,17 +19,23 @@
  *
  * =====================================================================================
  */
-
+class Vertex;
+class Triangle;
 class Edge
 {
 public:
 	Edge (Vertex* vert1, Vertex* vert2);
 	virtual ~Edge ();
-//	bool setTriangle(Triangle* tri);
+	double length();
+	double cost();
+	bool setTriangle(Triangle* tri);
 	Vertex* vert1;
 	Vertex* vert2;
-//	Triangle* tri1;
-//	Triangle* tri2;
+	Triangle* tri1;
+	Triangle* tri2;
+	static int id;
+	int currentID;
+	std::string toString();
 private:
 	/* data */
 };

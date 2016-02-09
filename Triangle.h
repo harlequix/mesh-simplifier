@@ -2,6 +2,8 @@
 #define TRIANGLE_H
 #include "Edge.h"
 #include "Vertex.h"
+#include <string>
+#include <math.h>
 /*
  * =====================================================================================
  *
@@ -19,11 +21,16 @@
  *
  * =====================================================================================
  */
+class Edge;
 class Triangle
 {
 public:
 	Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Vertex* vert2, Vertex* vert3);
+	Triangle (Vertex vert1, Vertex vert2, Vertex vert3);
+	std::string toString();
+	void calculateNorm();	
 	void setNormal(double x, double y, double z);
+	std::string normToString();
 	Edge* edge1;
 	Edge* edge2;
 	Edge* edge3;
@@ -36,6 +43,8 @@ public:
 	virtual ~Triangle ();
 
 private:
+	static int id;
+	int currentID;
 	/* data */
 };
 #endif /* ifndef TRIANGLE_H */

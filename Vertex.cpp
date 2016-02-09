@@ -1,4 +1,7 @@
 #include "Vertex.h"
+#include <sstream>
+#include <string>
+#include <vector>
 /*
  * =====================================================================================
  *
@@ -21,7 +24,20 @@ Vertex::Vertex(double x, double y, double z){
 	this->x = x;
 	this->y = y;
 	this->z = z;
+	std::vector<Triangle* > tr_list;
 }
 Vertex::~Vertex(){
 
+}
+std::string Vertex::toString() {
+	std::ostringstream foo1;
+	std::ostringstream foo2;
+	std::ostringstream foo3;
+	foo1 << x;
+	foo2 << y;
+	foo3 << z;
+	return "(" + foo1.str() + ", " + foo2.str() + ", " + foo3.str() + ")";
+}
+void Vertex::addTriangle(Triangle* tri){
+	this->tr_list.push_back(tri);
 }
