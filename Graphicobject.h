@@ -6,6 +6,8 @@
 #include "Triangle.h"
 #include <queue>
 #include "PriorityItem.h"
+#include <iostream>
+#include <fstream> 
 /*
  * =====================================================================================
  *

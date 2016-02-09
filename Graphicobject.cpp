@@ -23,8 +23,24 @@ Graphicobject::~Graphicobject(){
 
 }
 void Graphicobject::show() {
-	
+  int vertex_cnt=0;
+  int face_cnt=0;
+  std::ofstream outfile("collapse.obj");
+  for(Vertex* vertex : vertex_list){
+    outfile << "v " << vertex->x << " " << vertex->y << " " << vertex->z << std::endl;
+    vertex_cnt++;
+  }
+    outfile << std::endl;
+
+  for(Triangle* triangle : triangle_list){
+    outfile << "f " << triangle->vert1->id << " " << triangle->vert2->id << " " << triangle->vert3->id << std::endl;
+    face_cnt++;
+  }
+  outfile.close();
+  std::cout << "collapse.obj created with "<< vertex_cnt <<" vertices and " << face_cnt <<" faces" << std::endl;
+  return;
 }
+
 int Graphicobject::simplify(Edge* from, Edge* to) {
 	
 }

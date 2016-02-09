@@ -63,7 +63,7 @@ void Vertex::addEdge(Edge* new_edge) {
 	edge_list.push_back(new_edge);
 }
 
-void Vertex::setid(int i){
+void Vertex::setid(int id){
 	this->id=id;
 }
 
