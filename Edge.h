@@ -35,7 +35,7 @@ public:
 	Triangle* tri2;
 	static int id;
 	int currentID;
-	bool isIn(Vertex* q);
+	bool isIn(Vertex*);
 	bool replace(Vertex* old_vert, Vertex* new_vert);
 	std::string toString();
 private:
