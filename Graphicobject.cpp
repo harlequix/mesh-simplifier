@@ -49,6 +49,7 @@ int Graphicobject::simplify(Vertex* from, Vertex* to) {
 			this->triangle_list[i->currentID] = NULL;
 		}
 	}
+	//this->vertex_list[from->currentID] = NULL;
 }
 void Graphicobject::addEdge(Edge* new_edge) {
 	edge_list.push_back(new_edge);
