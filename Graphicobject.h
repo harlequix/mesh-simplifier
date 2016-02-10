@@ -34,14 +34,16 @@ public:
 	void addEdge(Edge* new_edge);
 	void addTriangle(Triangle* new_triangle);
 	void show();
-	int simplify(Vertex* from, Vertex* to);
+	void simplify();
+	int simplifytil(int num_edges);
 	void revert();
+	void collapse(Vertex* from, Vertex* to);
+	int tri_counter;
 	std::vector<Edge*> edge_list;
 	std::vector<Vertex*> vertex_list;
         std::vector<Triangle*> triangle_list;
 	std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> cost_queue;
 
 private:
-
 };
 #endif /* ifndef GRAPHICOB_H */

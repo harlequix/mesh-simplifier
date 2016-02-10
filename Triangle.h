@@ -37,6 +37,7 @@ public:
 	Vertex* vert1;
 	Vertex* vert2;
 	Vertex* vert3;
+	bool contains(Vertex* vert);
 	double normX;
 	double normY;
 	bool isIn(Vertex* q);
@@ -49,4 +50,5 @@ private:
 	static int id;
 	/* data */
 };
+bool operator==(Triangle tr1, Triangle tr2);
 #endif /* ifndef TRIANGLE_H */

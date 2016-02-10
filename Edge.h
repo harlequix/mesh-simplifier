@@ -27,7 +27,7 @@ public:
 	Edge (Vertex* vert1, Vertex* vert2);
 	virtual ~Edge ();
 	double length();
-	double cost();
+	double cost(Vertex* vert);
 	bool setTriangle(Triangle* tri);
 	Vertex* vert1;
 	Vertex* vert2;
@@ -41,4 +41,5 @@ public:
 private:
 	/* data */
 };
+bool operator==(Edge, Edge);
 #endif /* ifndef EDGE_H */

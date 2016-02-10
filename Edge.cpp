@@ -23,8 +23,8 @@
 Edge::Edge(Vertex* vert1, Vertex* vert2):currentID(id++){
 	this->vert1 = vert1;
 	this->vert2 = vert2;
-	this->tri1 = NULL;
-	this->tri2 = NULL;
+	//this->tri1 = NULL;
+	//this->tri2 = NULL;
 	vert1->addEdge(this);
 	vert2->addEdge(this);
 }
@@ -50,16 +50,17 @@ bool Edge::isIn(Vertex* q) {
 		return false;
 	}
 }
-double Edge::cost(){
+double Edge::cost(Vertex* vert){
 	//double min1 = 10000;
 	//double min2 = 10000;
 	std::vector<double> mins;
-	double max;
+	double max = 10000000000000;
 	if(tri1 != NULL){
 		double min = 100000;
-		for (Triangle* trie : vert1->tr_list) {
-			double skalarprod = (1-tri1->normX)*trie->normX + (1-tri1->normY)*trie->normY + (1-tri1->normZ)*trie->normZ;
-			skalarprod = skalarprod/2;
+		for (Triangle* trie : vert->tr_list) {
+			//double skalarprod = (1-tri1->normX)*trie->normX + (1-tri1->normY)*trie->normY + (1-tri1->normZ)*trie->normZ;
+			double skalarprod = tri1->normX*trie->normX + tri1->normY*trie->normY * tri1->normZ*trie->normZ;
+			skalarprod = (1-skalarprod)/2;
 			if(min > skalarprod){
 				min = skalarprod;
 			}
@@ -68,9 +69,9 @@ double Edge::cost(){
 	}
 	if(tri2!= NULL){
 		double min = 100000;
-		for (Triangle* trie : vert1->tr_list) {
-			double skalarprod = (1-tri2->normX)*trie->normX + (1-tri2->normY)*trie->normY + (1-tri2->normZ)*trie->normZ;
-			skalarprod = skalarprod/2;
+		for (Triangle* trie : vert->tr_list) {
+			double skalarprod = (tri2->normX)*trie->normX + (tri2->normY)*trie->normY + (tri2->normZ)*trie->normZ;
+			skalarprod = (1-skalarprod)/2;
 			if(min > skalarprod){
 				min = skalarprod;
 			}
@@ -107,4 +108,7 @@ std::string Edge::toString() {
 	}
 	return ret;
 }
-int Edge::id = 0;
+bool operator==(Edge r, Edge l){
+	return (r.vert1->currentID == l.vert1->currentID && r.vert2->currentID == l.vert2->currentID);
+}
+int Edge::id = 1;

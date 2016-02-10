@@ -1,0 +1,118 @@
+void Graphicobject::GenerateEdges() {
+	
+}
+int Graphicobject::simplifytil(int num_tri) {
+	while(num_tri < this->tri_counter){
+		//while(this->cost_queue.empty()){
+		//	this->cost_queue.pop();
+		//}
+		this->cost_queue = std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare>();
+		if(this->cost_queue.empty() == true){
+			std::cout << "Jippie";
+		}
+		else{
+			std::cout << "MIST";
+		}
+		//std::cout << this->cost_queue.empty();
+		//std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> empty;
+		//std::swap(this->cost_queue, empty);
+		for (Edge* i : this->edge_list) {
+			if(i != NULL){
+				this->cost_queue.push(PriorityItem(i, i->length()));
+				//this->cost_queue.push(PriorityItem(i, i->cost(i->vert2)));
+				//this->cost_queue.push(PriorityItem(i, i->cost(i->vert1)));
+			}
+		}
+		Edge* foo = this->cost_queue.top().content;
+		std::cout << this->cost_queue.top().cost << " id:" << foo->currentID;
+		while(!this->cost_queue.empty()){
+			this->cost_queue.pop();
+		}
+		this->simplify(foo->vert1, foo->vert2, foo);
+		//std::vector <Edge*>::iterator i = this->edge_list.begin ();
+		//i = std::find (this->edge_list.begin (),this->edge_list.end (), foo);
+		//this->edge_list.erase(i);
+
+	}
+}
+int Graphicobject::simplify(Vertex* from, Vertex* to, Edge* yoda) {
+	static int count = 0;
+	std::cout << from->toString() + " " + to->toString() << std::endl;
+	std::cout << yoda->currentID;
+	if(to->isConnected(from) == true){
+		std::cout << "Bug not found" <<std::endl;
+	}
+	else{
+		std::cout << "Bug found" <<std::endl;
+	}
+	std::vector<Edge*>::iterator mace = from->edge_list.begin();
+	mace = std::find(from->edge_list.begin(), from->edge_list.end(), to);
+	from->edge_list.erase(mace);
+
+	for (Edge* i : from->edge_list) {
+		Vertex* partner;
+		if(i->vert1 == from){
+			partner = i->vert2;
+		}
+		else{
+			partner = i->vert1;
+		}
+		if(partner == to){
+		}
+		else if(!to->isConnected(partner)){
+			i->replace(from, to);
+			if(i->tri1!=NULL){
+				i->tri1->replace(from, to);
+			}
+			if(i->tri2 != NULL){
+				i->tri2->replace(from, to);
+			}
+		}
+		else{
+			//this->edge_list[i->currentID] = NULL;
+			std::cout << "Edge Collapse " + std::to_string(i->currentID) << std::endl;
+			std::vector <Edge*>::iterator foo = this->edge_list.begin ();
+			foo = std::find (this->edge_list.begin (),this->edge_list.end (), i);
+			this->edge_list.erase(foo);
+
+		}
+	}
+	std::vector<Edge*>::iterator spongebob = to->edge_list.begin();
+	spongebob = std::find(to->edge_list.begin(), to->edge_list.end(), yoda);
+	to->edge_list.erase(spongebob);
+
+	for (Triangle* i : from->tr_list) {
+		if(!i->isIn(to)){
+			i->replace(from, to);
+		}
+		else{
+			if(this->triangle_list[i->currentID] != NULL){
+			this->triangle_list[i->currentID] = NULL;
+			std::vector<Triangle*>::iterator foo = to->tr_list.begin();
+			foo = std::find(to->tr_list.begin(), to->tr_list.end(), i);
+			to->tr_list.erase(foo);
+			this->tri_counter--;
+			count++;
+			std::cout << "Ich kollabiere gleich " << count << std::endl;
+			}
+			else{
+				std::cout << "Mist verpasst" << std::endl;
+			}
+		}
+	}
+	//yoda = NULL;
+	//std::cerr << "NULL du sein musst";
+	//from->edge_list = 0;
+	//from->tr_list = &NULL;
+	//this->vertex_list[from->currentID] = NULL;
+}
+
+void Graphicobject::addEdge(Edge* new_edge) {
+	edge_list.push_back(*new_edge);
+}
+void Graphicobject::addVertex(Vertex* new_Vertex) {
+	vertex_list.push_back(new_Vertex);
+}
+void Graphicobject::addTriangle(Triangle* new_triangle) {
+	triangle_list.push_back(new_triangle);
+}

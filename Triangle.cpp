@@ -1,5 +1,8 @@
 #include "Triangle.h"
 #include <string>
+#include <queue>
+#include <assert.h>
+#include <algorithm>
 /*
  * =====================================================================================
  *
@@ -17,6 +20,13 @@
  *
  * =====================================================================================
  */
+template<class T> int   Contains(const std::vector<T> & c, const T & t){ return std::count(begin(c), end(c), t); }
+template<class T> int   IndexOf(const std::vector<T> & c, const T & v) { return std::find(begin(c), end(c), v) - begin(c); } // Note: Not presently called
+template<class T> T &   Add(std::vector<T> & c, T t){ c.push_back(t); return c.back(); }
+template<class T> T     Pop(std::vector<T> & c){ auto val = std::move(c.back()); c.pop_back(); return val; }
+template<class T> void  AddUnique(std::vector<T> & c, T t){ if (!Contains(c, t)) c.push_back(t); }
+template<class T> void  Remove(std::vector<T> & c, T t){ auto it = std::find(begin(c), end(c), t); assert(it != end(c)); c.erase(it); assert(!Contains(c, t)); }
+
 
 Triangle::Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Vertex* vert2, Vertex* vert3):currentID(id++){
 	this->edge1 = v1tov2;
@@ -31,6 +41,12 @@ Triangle::Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Ver
 	this->vert1->addTriangle(this);
 	this->vert2->addTriangle(this);
 	this->vert3->addTriangle(this);
+	this->vert1->addNeighbour(vert2);
+	this->vert1->addNeighbour(vert3);
+	this->vert2->addNeighbour(vert1);
+	this->vert2->addNeighbour(vert3);
+	this->vert3->addNeighbour(vert1);
+	this->vert3->addNeighbour(vert2);
 	//this->id++;
 	//this->currentID = this->id;
 	calculateNorm();
@@ -43,6 +59,7 @@ Triangle::Triangle(Vertex vert1, Vertex vert2, Vertex vert3):currentID(id++){
 	this->vert1 = &vert1;
 	this->vert2 = &vert2;
 	this->vert3 = &vert3;
+	calculateNorm();
 }
 Triangle::~Triangle() {
 }
@@ -91,4 +108,7 @@ void Triangle::setNormal(double x, double y, double z) {
 std::string Triangle::normToString() {
 	return "Norm " + std::to_string(this->normX) + ", " + std::to_string(this->normY) + ", " +  std::to_string(this->normZ);
 }
-int Triangle::id = 0;
+bool operator==(Triangle tri1, Triangle tri2){
+	return tri1.currentID == tri2.currentID;
+}
+int Triangle::id = 1;

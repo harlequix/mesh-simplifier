@@ -27,7 +27,7 @@ class Vertex
 {
 public:
 	Vertex (double x, double y, double z);
-  int id;
+  int idd;
 	double x;
 	double y;
 	double z;
@@ -37,7 +37,14 @@ public:
 	std::vector<Triangle*> tr_list;
 	std::vector<Edge*> edge_list;
 	void addEdge(Edge* new_edge);
+	void addNeighbour(Vertex* vert);
+	void removeNeighbour(Vertex* vert);
+	void replaceNeighbour(Vertex* old, Vertex neww);
+	std::vector<Vertex*> neighbour_list;
 	bool isConnected(Vertex* q);
+	void removeTriangle(Triangle* trie);
+	int currentID;
+	static int id;
   void setid(int);
 private:
 	/* data */
@@ -45,5 +52,5 @@ private:
 
 double operator*(Vertex l, Vertex r);
 Vertex operator*(Vertex v, double s);
-
+bool operator==(Vertex v, Vertex q);
 #endif /* ifndef VERTEX_H */
