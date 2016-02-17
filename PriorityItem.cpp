@@ -1,4 +1,5 @@
 #include "Graphicobject.h"
+#include "PriorityItem.h"
 /*
  * =====================================================================================
  *
@@ -17,4 +18,6 @@
  * =====================================================================================
  */
 
-
+std::string PriorityItem::toString() {
+	return "Kosten: " + std::to_string(this->cost) +"\n"+this->content->toString();
+}

@@ -35,7 +35,7 @@ template<class T> void  Remove(std::vector<T> & c, T t){ auto it = std::find(beg
 
 
 
-Vertex::Vertex(double x, double y, double z):currentID(id++){
+Vertex::Vertex(double x, double y, double z):currentID(++id){
 	this->x = x;
 	this->y = y;
 	this->z = z;
@@ -76,6 +76,7 @@ std::string Vertex::toString() {
 	std::ostringstream foo2;
 	std::ostringstream foo3;
 	std::ostringstream edges;
+	std::ostringstream triangles;
 	foo1 << x;
 	foo2 << y;
 	foo3 << z;
@@ -83,10 +84,14 @@ std::string Vertex::toString() {
 	for (Vertex* i : neighbour_list) {
 		edges << std::to_string(i->currentID) + ", ";
 	}
-	return std::to_string(this->currentID) + " (" + foo1.str() + ", " + foo2.str() + ", " + foo3.str() + ")"+ "\n\t" + edges.str();
+	triangles << "Triangles: ";
+	for (Triangle* i : this->tr_list) {
+		triangles << std::to_string(i->currentID) + ", ";
+	}
+	return std::to_string(this->currentID) + " (" + foo1.str() + ", " + foo2.str() + ", " + foo3.str() + ")"+ "\n\t" + edges.str() +"\n\t" + triangles.str();
 }
 void Vertex::addTriangle(Triangle* tri){
-	this->tr_list.push_back(tri);
+	AddUnique(this->tr_list,tri);
 }
 
 double operator*(Vertex l, Vertex r){
@@ -106,4 +111,4 @@ Vertex operator*(Vertex v, double s){
 	Vertex vertex(v.x * s, v.y * s, v.z * s);
 	return vertex;
 }
-int Vertex::id = 1;
+int Vertex::id = 0;

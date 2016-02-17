@@ -25,9 +25,10 @@ class Edge
 {
 public:
 	Edge (Vertex* vert1, Vertex* vert2);
+	Edge (){};
 	virtual ~Edge ();
 	double length();
-	double cost(Vertex* vert);
+	double cost(Vertex* vert, Vertex*);
 	bool setTriangle(Triangle* tri);
 	Vertex* vert1;
 	Vertex* vert2;

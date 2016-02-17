@@ -1,6 +1,8 @@
-#include "Edge.h"
-/*
- * =====================================================================================
+#ifndef PRIORITYITEM_H 
+#define PRIORITYITEM_H
+
+//#include "Edge.h"
+/* * =====================================================================================
  *
  *       Filename:  PriorityItem.h
  *
@@ -16,24 +18,30 @@
  *
  * =====================================================================================
  */
+class Edge;
 class PriorityItem
 {
 public:
 	double cost;
-	Edge* content;
-	PriorityItem (Edge* new_edge, double cost){
+	Edge content;
+	PriorityItem(){};
+	PriorityItem (Edge new_edge, double cost){
 		this->content = new_edge;
 		this->cost = cost;
 	};
 	~PriorityItem (){};
-
+	std::string toString();
 
 private:
 	/* data */
 };
-struct compare {
+/*struct compare {
 	bool operator()(const PriorityItem l, const PriorityItem r){
 		return l.cost > r.cost;
 	}
-};
+};*/
+/*bool operator<(const PriorityItem l, const PriorityItem r){
+	return l.cost < r.cost;
+}*/
 
+#endif /* ifndef  */

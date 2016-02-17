@@ -2,6 +2,14 @@
 #include <algorithm>
 #include <iostream>
 //#define NULL 0
+template<class T> int   Contains(const std::vector<T> & c, const T & t){ return std::count(begin(c), end(c), t); }
+template<class T> int   IndexOf(const std::vector<T> & c, const T & v) { return std::find(begin(c), end(c), v) - begin(c); } // Note: Not presently called
+template<class T> T &   Add(std::vector<T> & c, T t){ c.push_back(t); return c.back(); }
+template<class T> T     Pop(std::vector<T> & c){ auto val = std::move(c.back()); c.pop_back(); return val; }
+template<class T> void  AddUnique(std::vector<T> & c, T t){ if (!Contains(c, t)) c.push_back(t); }
+template<class T> void  Remove(std::vector<T> & c, T t){ auto it = std::find(begin(c), end(c), t); assert(it != end(c)); c.erase(it); assert(!Contains(c, t)); }
+
+
 /*
  * =====================================================================================
  *
@@ -50,16 +58,22 @@ bool Edge::isIn(Vertex* q) {
 		return false;
 	}
 }
-double Edge::cost(Vertex* vert){
+double Edge::cost(Vertex* vert, Vertex* vert2){
 	//double min1 = 10000;
 	//double min2 = 10000;
 	std::vector<double> mins;
+	std::vector<Triangle*> uv;
+	for (Triangle* i : vert->tr_list) {
+		if(Contains(vert2->tr_list, i)){
+			Add(uv, i);
+		}
+	}
 	double max = 10000000000000;
-	if(tri1 != NULL){
+	for(Triangle* u : uv){
 		double min = 100000;
 		for (Triangle* trie : vert->tr_list) {
 			//double skalarprod = (1-tri1->normX)*trie->normX + (1-tri1->normY)*trie->normY + (1-tri1->normZ)*trie->normZ;
-			double skalarprod = tri1->normX*trie->normX + tri1->normY*trie->normY * tri1->normZ*trie->normZ;
+			double skalarprod = u->normX*trie->normX + u->normY*trie->normY * u->normZ*trie->normZ;
 			skalarprod = (1-skalarprod)/2;
 			if(min > skalarprod){
 				min = skalarprod;
@@ -67,19 +81,9 @@ double Edge::cost(Vertex* vert){
 		}
 		mins.push_back(min);
 	}
-	if(tri2!= NULL){
-		double min = 100000;
-		for (Triangle* trie : vert->tr_list) {
-			double skalarprod = (tri2->normX)*trie->normX + (tri2->normY)*trie->normY + (tri2->normZ)*trie->normZ;
-			skalarprod = (1-skalarprod)/2;
-			if(min > skalarprod){
-				min = skalarprod;
-			}
-		}
-		mins.push_back(min);
+	if(mins.size() > 0){
+		max = *std::max_element(mins.begin(), mins.end());
 	}
-	//std::cout << mins[0] << " " << mins[1];
-	max = *std::max_element(mins.begin(), mins.end());
 	return max * length();
 }
 double Edge::length() {

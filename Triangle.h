@@ -37,6 +37,7 @@ public:
 	Vertex* vert1;
 	Vertex* vert2;
 	Vertex* vert3;
+	bool invalid();
 	bool contains(Vertex* vert);
 	double normX;
 	double normY;
@@ -45,6 +46,7 @@ public:
 	double normZ;
 	virtual ~Triangle ();
 	int currentID;
+	void unregisterVertices();
 
 private:
 	static int id;

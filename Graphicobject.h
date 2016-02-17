@@ -25,6 +25,7 @@
  *
  * =====================================================================================
  */
+class PriorityItem;
 class Graphicobject
 {
 public:
@@ -42,7 +43,7 @@ public:
 	std::vector<Edge*> edge_list;
 	std::vector<Vertex*> vertex_list;
         std::vector<Triangle*> triangle_list;
-	std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> cost_queue;
+	//std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> cost_queue;
 
 private:
 };

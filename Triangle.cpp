@@ -1,6 +1,7 @@
 #include "Triangle.h"
 #include <string>
 #include <queue>
+#include <iostream>
 #include <assert.h>
 #include <algorithm>
 /*
@@ -77,20 +78,37 @@ void Triangle::calculateNorm() {
 std::string Triangle::toString() {
 	return "Triangle " + std::to_string(this->currentID) + "\n" + "\t" + vert1->toString() + "\n\t" + vert2->toString() + "\n\t" + vert3->toString() + "\n";
 }
+bool Triangle::invalid() {
+	std::cout << "Triangel: " << this->currentID << "; Vert1: " << vert1->currentID << ", Vert2: " <<vert2->currentID << ", Vert3: " <<vert3->currentID <<std::endl;
+	if(vert1->currentID == vert2->currentID || vert1->currentID == vert3->currentID || vert2->currentID == vert3->currentID){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 bool Triangle::replace(Vertex* old_vert, Vertex* new_vert) {
-	if(this->vert1 == old_vert){
+	/*if(this->vert1->currentID == new_vert->currentID||this->vert2->currentID == new_vert->currentID||this->vert3->currentID == new_vert->currentID){
+		return false;
+	}*/
+	if(this->vert1->currentID == old_vert->currentID){
 		this->vert1 = new_vert;
 		return true;
 	}
-	if(this->vert2 == old_vert){
+	if(this->vert2->currentID == old_vert->currentID){
 		this->vert2 = new_vert;
 		return true;
 	}
-	if(this->vert3 == old_vert){
+	if(this->vert3->currentID == old_vert->currentID){
 		this->vert3 = new_vert;
 		return true;
 	}
 	return false;
+}
+void Triangle::unregisterVertices() {
+	this->vert1->removeTriangle(this);
+	this->vert2->removeTriangle(this);
+	this->vert3->removeTriangle(this);
 }
 bool Triangle::isIn(Vertex* q) {
 	if(q == this->vert1 || q == this->vert2 || q == this->vert3){
