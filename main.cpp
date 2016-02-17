@@ -27,18 +27,18 @@ int main(int argc, char *argv[]){
 	Graphicobject object=reader.readFile("teapot.obj");
 	Graphicobject foo = object;
 	for (Vertex* i : object.vertex_list) {
-		std::cout << i->toString() << std::endl;
+	//	std::cout << i->toString() << std::endl;
 	}
 	for (Triangle* i : object.triangle_list) {
-		std::cout << i->toString() << std::endl;
+	//	std::cout << i->toString() << std::endl;
 	}
 	//foo.simplifytil(1); {
 	foo.simplify();
 	for (Vertex* i : object.vertex_list) {
-		std::cout << i->toString() << std::endl;
+	//	std::cout << i->toString() << std::endl;
 	}
 	for (Triangle* i : foo.triangle_list) {
-		std::cout << i->toString() << std::endl;
+	//	std::cout << i->toString() << std::endl;
 	}
 	//foo.simplify();
 	//foo.simplify();

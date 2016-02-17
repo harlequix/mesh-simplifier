@@ -48,9 +48,9 @@ int Graphicobject::simplifytil(int num_tris) {
 	}
 }
 void Graphicobject::collapse(Vertex* from, Vertex* to) {
-	std::cout << "Collapsing from: " << std::endl << from->toString()<< std::endl << "to:" <<std::endl << to->toString() <<std::endl;
+	//std::cout << "Collapsing from: " << std::endl << from->toString()<< std::endl << "to:" <<std::endl << to->toString() <<std::endl;
 	for (Triangle* trie : from->tr_list) {
-		std::cout << "Betrachte: " << trie->currentID << std::endl;
+		//std::cout << "Betrachte: " << trie->currentID << std::endl;
 		trie->replace(from, to);
 		to->addTriangle(trie);
 			//from->removeTriangle(trie);
@@ -64,7 +64,7 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 
 	}
 	for (Triangle* i : to->tr_list) {
-		std::cout << "Triangle: " << i->currentID << std::endl;
+		//std::cout << "Triangle: " << i->currentID << std::endl;
 	}
 	for (Vertex* i : from->neighbour_list) {
 		i->removeNeighbour(from);
@@ -72,7 +72,7 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 	for (std::vector<Triangle*>::iterator it = from->tr_list.begin(); it!=from->tr_list.end();it++) {
 		Triangle* trie = *it;
 		if(trie->invalid()){
-			std::cout << "Removing Triangle: " << trie->currentID << std::endl;
+		//	std::cout << "Removing Triangle: " << trie->currentID << std::endl;
 			trie->unregisterVertices();
 			if(Contains(this->triangle_list, trie)){
 			Remove(this->triangle_list, trie);
@@ -147,19 +147,19 @@ void Graphicobject::simplify() {
 		AddUnique(edges, Edge(tr->vert3, tr->vert1));*/
 	}
 	for (Edge i : edges) {
-		std::cout << "From: " << i.vert1->currentID << " to " << i.vert2->currentID << std::endl;
+		//std::cout << "From: " << i.vert1->currentID << " to " << i.vert2->currentID << std::endl;
 	}
 	std::vector<PriorityItem> priority_queue;
 	for (Edge e : edges) {
 		priority_queue.push_back(PriorityItem(e, e.cost(e.vert1, e.vert2)));
 		priority_queue.push_back(PriorityItem(e, e.cost(e.vert2, e.vert1)));
-		std::cout << "Pushing Back " << e.vert1->currentID <<", " <<e.vert2->currentID << std::endl;
+		//std::cout << "Pushing Back " << e.vert1->currentID <<", " <<e.vert2->currentID << std::endl;
 	}
 	for (PriorityItem i : priority_queue) {
-		std::cout << "Edge: " << i.content.vert1->currentID <<", "<< i.content.vert2->currentID << " Kosten: " << i.cost<<std::endl;
+		//std::cout << "Edge: " << i.content.vert1->currentID <<", "<< i.content.vert2->currentID << " Kosten: " << i.cost<<std::endl;
 	}
 	PriorityItem foo1 = *std::min_element(priority_queue.begin(), priority_queue.end(), myfn);
-	std::cout << "Minimum: " << foo1.content.vert1->currentID << ", " << foo1.content.vert2->currentID << std::endl;
+	//std::cout << "Minimum: " << foo1.content.vert1->currentID << ", " << foo1.content.vert2->currentID << std::endl;
 	/*std::cout << "########" <<std::endl;
 	for (Edge e : edges) {
 
@@ -180,9 +180,9 @@ void Graphicobject::simplify() {
 		this->cost_queue.pop();
 	}*/
 	static int counter = 0;
-	std::cout <<"Counter " << counter << std::endl;
+	//std::cout <<"Counter " << counter << std::endl;
 	for (Triangle* i : triangle_list) {
-		std::cout << i->currentID << std::endl;
+		//std::cout << i->currentID << std::endl;
 		assert(("Counter " + std::to_string(counter),!i->invalid()));
 	}
 	collapse(foo1.content.vert1, foo1.content.vert2);

@@ -79,7 +79,7 @@ std::string Triangle::toString() {
 	return "Triangle " + std::to_string(this->currentID) + "\n" + "\t" + vert1->toString() + "\n\t" + vert2->toString() + "\n\t" + vert3->toString() + "\n";
 }
 bool Triangle::invalid() {
-	std::cout << "Triangel: " << this->currentID << "; Vert1: " << vert1->currentID << ", Vert2: " <<vert2->currentID << ", Vert3: " <<vert3->currentID <<std::endl;
+	//std::cout << "Triangel: " << this->currentID << "; Vert1: " << vert1->currentID << ", Vert2: " <<vert2->currentID << ", Vert3: " <<vert3->currentID <<std::endl;
 	if(vert1->currentID == vert2->currentID || vert1->currentID == vert3->currentID || vert2->currentID == vert3->currentID){
 		return true;
 	}

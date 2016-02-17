@@ -36,7 +36,6 @@
       iss >> s >> a >> b >> c;
       if(s.compare("v")==0){
         Vertex* vertex=new Vertex(a,b,c);
-        //std::cerr << vertex << std::endl;
         vertices[vertex_count]=vertex;
         obj->addVertex(vertices[vertex_count]);
         std::cerr << "Added vertex" << std::endl;
