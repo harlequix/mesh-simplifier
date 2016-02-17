@@ -48,9 +48,8 @@ int Graphicobject::simplifytil(int num_tris) {
 	}
 }
 void Graphicobject::collapse(Vertex* from, Vertex* to) {
-	//std::cout << "Collapsing from: " << std::endl << from->toString()<< std::endl << "to:" <<std::endl << to->toString() <<std::endl;
+	std::cout << "Collapsing from: " << std::endl << from->toString()<< std::endl << "to:" <<std::endl << to->toString() <<std::endl;
 	for (Triangle* trie : from->tr_list) {
-		//std::cout << "Betrachte: " << trie->currentID << std::endl;
 		trie->replace(from, to);
 		to->addTriangle(trie);
 			//from->removeTriangle(trie);
@@ -64,7 +63,6 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 
 	}
 	for (Triangle* i : to->tr_list) {
-		//std::cout << "Triangle: " << i->currentID << std::endl;
 	}
 	for (Vertex* i : from->neighbour_list) {
 		i->removeNeighbour(from);
@@ -72,7 +70,7 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 	for (std::vector<Triangle*>::iterator it = from->tr_list.begin(); it!=from->tr_list.end();it++) {
 		Triangle* trie = *it;
 		if(trie->invalid()){
-		//	std::cout << "Removing Triangle: " << trie->currentID << std::endl;
+			std::cout << "Removing Triangle: " << trie->currentID << std::endl;
 			trie->unregisterVertices();
 			if(Contains(this->triangle_list, trie)){
 			Remove(this->triangle_list, trie);
@@ -81,41 +79,6 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 		else{trie->calculateNorm();}
 	}
 
-	/* for (Triangle* trie : from->tr_list) {
-		if(!trie->isIn(to)){
-			trie->replace(from, to);
-			to->addNeighbour(trie->vert1);
-			to->addNeighbour(trie->vert2);
-			to->addNeighbour(trie->vert3);
-			trie->vert1->addNeighbour(to);
-			trie->vert2->addNeighbour(to);
-			trie->vert3->addNeighbour(to);
-		}
-		else{
-			std::cout << trie->toString() << std::endl;
-			std::cout << from->toString() << std::endl;
-			trie->vert1->removeNeighbour(from);
-			trie->vert2->removeNeighbour(from);
-			trie->vert3->removeNeighbour(from);
-			from->addNeighbour(trie->vert1);
-			from->addNeighbour(trie->vert2);
-			from->addNeighbour(trie->vert3);
-			trie->vert1->removeTriangle(trie);
-			trie->vert2->removeTriangle(trie);
-			trie->vert3->removeTriangle(trie);
-			if(Contains(this->triangle_list, trie)){
-				Remove(this->triangle_list, trie);
-			}
-		}
-	}
-	for (Vertex* neigh : from->neighbour_list) {
-		neigh->removeNeighbour(from);
-	}
-	for (Triangle* tr : from->tr_list) {
-		if(tr->isIn(from)){
-			std::cerr <<"Vertex ist immer noch in Triangles vorhanden!";
-		}
-	}*/
 }
 bool myfn(const PriorityItem l, PriorityItem r){
 	return l.cost < r.cost;
@@ -142,57 +105,26 @@ void Graphicobject::simplify() {
 		if(e3.length() > 0){
 			AddUnique(edges, e3);
 		}}
-		/*AddUnique(edges, Edge(tr->vert1, tr->vert2));
-		AddUnique(edges, Edge(tr->vert2, tr->vert3));
-		AddUnique(edges, Edge(tr->vert3, tr->vert1));*/
+
 	}
 	for (Edge i : edges) {
-		//std::cout << "From: " << i.vert1->currentID << " to " << i.vert2->currentID << std::endl;
+		std::cout << "From: " << i.vert1->currentID << " to " << i.vert2->currentID << std::endl;
 	}
 	std::vector<PriorityItem> priority_queue;
 	for (Edge e : edges) {
 		priority_queue.push_back(PriorityItem(e, e.cost(e.vert1, e.vert2)));
 		priority_queue.push_back(PriorityItem(e, e.cost(e.vert2, e.vert1)));
-		//std::cout << "Pushing Back " << e.vert1->currentID <<", " <<e.vert2->currentID << std::endl;
 	}
 	for (PriorityItem i : priority_queue) {
-		//std::cout << "Edge: " << i.content.vert1->currentID <<", "<< i.content.vert2->currentID << " Kosten: " << i.cost<<std::endl;
 	}
 	PriorityItem foo1 = *std::min_element(priority_queue.begin(), priority_queue.end(), myfn);
-	//std::cout << "Minimum: " << foo1.content.vert1->currentID << ", " << foo1.content.vert2->currentID << std::endl;
-	/*std::cout << "########" <<std::endl;
-	for (Edge e : edges) {
-
-		//this->cost_queue.push(PriorityItem(&e, e.length()));
-		this->cost_queue.push(PriorityItem(&e,  1 + (rand() % (int)(100 - 1 + 1))));
-	}
-	//TODO Debug messages
-	std::priority_queue<PriorityItem, std::vector<PriorityItem>, compare> log_queue =this->cost_queue;
-	while(!log_queue.empty()){
-		PriorityItem foo = log_queue.top();
-		std::cout << "From " << foo.content->vert1->currentID << " to " << foo.content->vert2->currentID << ": " << foo.cost << std::endl;
-		log_queue.pop();
-	}
-	//Debug til here
-	Edge* foo = this->cost_queue.top().content;
-	while(!this->cost_queue.empty()){
-		//std::cout << "Kosten: " << cost_queue.top().cost << this->cost_queue.top().content->toString() << std::endl;
-		this->cost_queue.pop();
-	}*/
 	static int counter = 0;
-	//std::cout <<"Counter " << counter << std::endl;
 	for (Triangle* i : triangle_list) {
-		//std::cout << i->currentID << std::endl;
 		assert(("Counter " + std::to_string(counter),!i->invalid()));
 	}
 	collapse(foo1.content.vert1, foo1.content.vert2);
 	counter++;
 }
-/*void Graphicobject::generate() {
-	for (Triangle* i : this->triangle_list) {
-		if(containsEdge(i->v1, i->v2, this->edge_list))
-	}
-}*/
 
 void Graphicobject::show() {
   int vertex_cnt=0;
