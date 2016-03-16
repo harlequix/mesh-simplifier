@@ -42,13 +42,12 @@ Graphicobject::~Graphicobject(){
 	}
 	return false;
 }*/
-int Graphicobject::simplifytil(int num_tris) {
+int Graphicobject::simplifytil(int num_tris, std::string algorithm) {
 	while(this->triangle_list.size()>num_tris){
-		simplify();
+		simplify(algorithm);
 	}
 }
 void Graphicobject::collapse(Vertex* from, Vertex* to) {
-	std::cout << "Collapsing from: " << std::endl << from->toString()<< std::endl << "to:" <<std::endl << to->toString() <<std::endl;
 	for (Triangle* trie : from->tr_list) {
 		trie->replace(from, to);
 		to->addTriangle(trie);
@@ -62,15 +61,12 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 		trie->calculateNorm();
 
 	}
-	for (Triangle* i : to->tr_list) {
-	}
 	for (Vertex* i : from->neighbour_list) {
 		i->removeNeighbour(from);
 	}
 	for (std::vector<Triangle*>::iterator it = from->tr_list.begin(); it!=from->tr_list.end();it++) {
 		Triangle* trie = *it;
 		if(trie->invalid()){
-			std::cout << "Removing Triangle: " << trie->currentID << std::endl;
 			trie->unregisterVertices();
 			if(Contains(this->triangle_list, trie)){
 			Remove(this->triangle_list, trie);
@@ -79,11 +75,46 @@ void Graphicobject::collapse(Vertex* from, Vertex* to) {
 		else{trie->calculateNorm();}
 	}
 
+	/* for (Triangle* trie : from->tr_list) {
+		if(!trie->isIn(to)){
+			trie->replace(from, to);
+			to->addNeighbour(trie->vert1);
+			to->addNeighbour(trie->vert2);
+			to->addNeighbour(trie->vert3);
+			trie->vert1->addNeighbour(to);
+			trie->vert2->addNeighbour(to);
+			trie->vert3->addNeighbour(to);
+		}
+		else{
+			std::cout << trie->toString() << std::endl;
+			std::cout << from->toString() << std::endl;
+			trie->vert1->removeNeighbour(from);
+			trie->vert2->removeNeighbour(from);
+			trie->vert3->removeNeighbour(from);
+			from->addNeighbour(trie->vert1);
+			from->addNeighbour(trie->vert2);
+			from->addNeighbour(trie->vert3);
+			trie->vert1->removeTriangle(trie);
+			trie->vert2->removeTriangle(trie);
+			trie->vert3->removeTriangle(trie);
+			if(Contains(this->triangle_list, trie)){
+				Remove(this->triangle_list, trie);
+			}
+		}
+	}
+	for (Vertex* neigh : from->neighbour_list) {
+		neigh->removeNeighbour(from);
+	}
+	for (Triangle* tr : from->tr_list) {
+		if(tr->isIn(from)){
+			std::cerr <<"Vertex ist immer noch in Triangles vorhanden!";
+		}
+	}*/
 }
 bool myfn(const PriorityItem l, PriorityItem r){
 	return l.cost < r.cost;
 }
-void Graphicobject::simplify() {
+void Graphicobject::simplify(std::string algorithm) {
 	std::vector<Edge> edges;
 	std::random_device rd;
 	std::mt19937 rng(rd());
@@ -105,20 +136,29 @@ void Graphicobject::simplify() {
 		if(e3.length() > 0){
 			AddUnique(edges, e3);
 		}}
-
-	}
-	for (Edge i : edges) {
-		std::cout << "From: " << i.vert1->currentID << " to " << i.vert2->currentID << std::endl;
+		/*AddUnique(edges, Edge(tr->vert1, tr->vert2));
+		AddUnique(edges, Edge(tr->vert2, tr->vert3));
+		AddUnique(edges, Edge(tr->vert3, tr->vert1));*/
 	}
 	std::vector<PriorityItem> priority_queue;
-	for (Edge e : edges) {
-		priority_queue.push_back(PriorityItem(e, e.cost(e.vert1, e.vert2)));
-		priority_queue.push_back(PriorityItem(e, e.cost(e.vert2, e.vert1)));
+	if(algorithm.compare("--simple") == 0){
+		for (Edge e : edges) {
+			priority_queue.push_back(PriorityItem(e, e.cost(e.vert1, e.vert2)));
+			priority_queue.push_back(PriorityItem(e, e.cost(e.vert2, e.vert1)));
+		}
 	}
-	for (PriorityItem i : priority_queue) {
+	else if(algorithm.compare("--random") == 0){
+		for (Edge e : edges) {
+			priority_queue.push_back(PriorityItem(e,1 + (rand() % (int)(100 - 1 + 1)) ));
+		}
+	}
+	else if(algorithm.compare("--length") == 0){
+		for (Edge e : edges) {
+			priority_queue.push_back(PriorityItem(e,e.cost(e.vert1, e.vert2) ));
+		}
 	}
 	PriorityItem foo1 = *std::min_element(priority_queue.begin(), priority_queue.end(), myfn);
-	static int counter = 0;
+		static int counter = 0;
 	for (Triangle* i : triangle_list) {
 		assert(("Counter " + std::to_string(counter),!i->invalid()));
 	}
@@ -126,10 +166,10 @@ void Graphicobject::simplify() {
 	counter++;
 }
 
-void Graphicobject::show() {
+void Graphicobject::show(std::string output) {
   int vertex_cnt=0;
   int face_cnt=0;
-  std::ofstream outfile("collapse.obj");
+  std::ofstream outfile(output);
   for(Vertex* vertex : vertex_list){
     outfile << "v " << vertex->x << " " << vertex->y << " " << vertex->z << std::endl;
     vertex_cnt++;
@@ -143,7 +183,7 @@ void Graphicobject::show() {
     }
   }
   outfile.close();
-  std::cout << "collapse.obj created with "<< vertex_cnt <<" vertices and " << face_cnt <<" faces" << std::endl;
+  std::cout << output  << " created with "<< vertex_cnt <<" vertices and " << face_cnt <<" faces" << std::endl;
   return;
 }
 void Graphicobject::addEdge(Edge* new_edge) {

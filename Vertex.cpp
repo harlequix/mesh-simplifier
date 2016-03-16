@@ -34,7 +34,6 @@ template<class T> void  Remove(std::vector<T> & c, T t){ auto it = std::find(beg
 
 
 
-
 Vertex::Vertex(double x, double y, double z):currentID(++id){
 	this->x = x;
 	this->y = y;
@@ -111,4 +110,4 @@ Vertex operator*(Vertex v, double s){
 	Vertex vertex(v.x * s, v.y * s, v.z * s);
 	return vertex;
 }
-int Vertex::id = 0;
+int Vertex::id = 1;

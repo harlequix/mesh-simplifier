@@ -48,8 +48,13 @@ Triangle::Triangle (Edge* v1tov2, Edge* v2tov3, Edge* v3tov1, Vertex* vert1, Ver
 	this->vert2->addNeighbour(vert3);
 	this->vert3->addNeighbour(vert1);
 	this->vert3->addNeighbour(vert2);
+	//this->id++;
+	//this->currentID = this->id;
 	calculateNorm();
-
+	//this->normX = 1;
+	//this->normY = 1;
+	//this->normZ = 1;
+	//TODO Register Triangle to edges
 }
 Triangle::Triangle(Vertex vert1, Vertex vert2, Vertex vert3):currentID(id++){
 	this->vert1 = &vert1;
@@ -82,6 +87,9 @@ bool Triangle::invalid() {
 	}
 }
 bool Triangle::replace(Vertex* old_vert, Vertex* new_vert) {
+	/*if(this->vert1->currentID == new_vert->currentID||this->vert2->currentID == new_vert->currentID||this->vert3->currentID == new_vert->currentID){
+		return false;
+	}*/
 	if(this->vert1->currentID == old_vert->currentID){
 		this->vert1 = new_vert;
 		return true;

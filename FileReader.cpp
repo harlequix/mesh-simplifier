@@ -36,9 +36,10 @@
       iss >> s >> a >> b >> c;
       if(s.compare("v")==0){
         Vertex* vertex=new Vertex(a,b,c);
+        //std::cerr << vertex << std::endl;
         vertices[vertex_count]=vertex;
         obj->addVertex(vertices[vertex_count]);
-        std::cerr << "Added vertex" << std::endl;
+        //std::cerr << "Added vertex" << std::endl;
         vertex_count++;
         vertex->setid(vertex_count);
       }
@@ -98,24 +99,24 @@
         if(insert_ab==0){
           ab=new Edge(vertex_a,vertex_b);
           obj->addEdge(ab);
-          std::cerr << "Added edge "<< vertex_a->x <<" to " << vertex_b->x << std::endl;
+          //std::cerr << "Added edge "<< vertex_a->x <<" to " << vertex_b->x << std::endl;
 
         }
         if(insert_bc==0){
           bc=new Edge(vertex_b,vertex_c);
           obj->addEdge(bc);
-          std::cerr << "Added edge"<< vertex_b->x <<" to " << vertex_c->x << std::endl;
+          //std::cerr << "Added edge"<< vertex_b->x <<" to " << vertex_c->x << std::endl;
         }
         if(insert_ca==0){
           ca=new Edge(vertex_c,vertex_a);
           obj->addEdge(ca);
-          std::cerr << "Added edge"<< vertex_c->x <<" to " << vertex_a->x << std::endl;
+          //std::cerr << "Added edge"<< vertex_c->x <<" to " << vertex_a->x << std::endl;
 
         }
         //add Triangle with vertex and edge information
         Triangle* triangle=new Triangle(ab,bc,ca,vertex_a,vertex_b,vertex_c);
         obj->addTriangle(triangle);
-        std::cerr << "Added triangle" << std::endl;
+        //std::cerr << "Added triangle" << std::endl;
       }
     }
     return *obj;

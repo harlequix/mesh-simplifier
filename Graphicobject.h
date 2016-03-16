@@ -34,9 +34,9 @@ public:
 	void addVertex(Vertex*new_Vertex);
 	void addEdge(Edge* new_edge);
 	void addTriangle(Triangle* new_triangle);
-	void show();
-	void simplify();
-	int simplifytil(int num_edges);
+	void show(std::string output);
+	void simplify(std::string algorithm);
+	int simplifytil(int num_edges, std::string algorithm);
 	void revert();
 	void collapse(Vertex* from, Vertex* to);
 	int tri_counter;
